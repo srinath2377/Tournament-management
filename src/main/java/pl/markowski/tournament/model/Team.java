@@ -1,8 +1,6 @@
 package pl.markowski.tournament.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Team {
@@ -13,8 +11,8 @@ public class Team {
 
     private String name;
     private String rank;
-    @ElementCollection
-    private List<String> players = new ArrayList<String>();
+    private String email;
+    private String players;
 
     public Team() {
     }
@@ -43,11 +41,19 @@ public class Team {
         this.rank = rank;
     }
 
-    public List<String> getPlayers() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<String> players) {
+    public void setPlayers(String players) {
         this.players = players;
     }
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit your team</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+</head>
+<body>
+
+<nav th:replace="index :: nav"></nav>
+
+
+<div align="center">
+    <h1>Submit your team to the tournament here!</h1>
+        <h2 th:if="${param.success}"> Thank you for adding your team to the tournament!</h2>
+         </div>
+
+        <form action="#" th:action="@{/submit}" th:object="${submit}" method="post">
+            <label>Name of your team: </label>
+            <input type="text" th:field="*{name}">
+
+            <label>Select your team's rank: </label>
+            <select th:field="*{rank}">
+                <option th:each="p : ${rank}" th:value="${p}" th:text="${p}"></option>
+            </select>
+
+            <label>Your e-mail address: </label>
+            <input type="text" th:field="*{email}">
+
+            <label>Player nicknames: </label>
+            <textarea rows="2" cols="30" th:field="*{players}"></textarea>
+
+            </br> </br>
+            <button type="submit"> Add team</button>
+
+        </form>
+</div>
+
+</body>
+</html>

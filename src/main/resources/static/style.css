@@ -1,0 +1,11 @@
+label {
+    display: block;
+    margin: 10px;
+    width: 200px;
+    text-align: left;
+}
+
+button {
+    margin: 20px;
+    padding: 20px;
+}
