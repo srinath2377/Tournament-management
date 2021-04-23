@@ -19,7 +19,6 @@ computer games. An administrator could accept teams and set them against each ot
 * Thymeleaf
 
 #### Used tools:
-* Lombok
 * Maven
 
 
