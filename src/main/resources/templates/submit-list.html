@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit list</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+
+
+</head>
+<body>
+
+<nav th:replace="index :: nav"></nav>
+
+<div th:switch="${submits}">
+    <tbody th:each="submit : ${submits}">
+    <tr>
+        <td th:text="${submit.name}">
+
+        </td>
+    </tr>
+    </tbody>
+</div>
+
+</body>
+</html>

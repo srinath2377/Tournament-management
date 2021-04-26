@@ -12,7 +12,7 @@ public class Team {
     private String name;
     private String rank;
     private String email;
-    private String players;
+    private String leader;
 
     public Team() {
     }
@@ -49,11 +49,11 @@ public class Team {
         this.email = email;
     }
 
-    public String getPlayers() {
-        return players;
+    public String getLeader() {
+        return leader;
     }
 
-    public void setPlayers(String players) {
-        this.players = players;
+    public void setLeader(String leader) {
+        this.leader = leader;
     }
 }

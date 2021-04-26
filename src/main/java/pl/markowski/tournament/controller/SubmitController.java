@@ -23,6 +23,12 @@ public class SubmitController {
         this.submitRepo = submitRepo;
     }
 
+    @GetMapping("/list")
+    public String showSubmit (Model model) {
+        model.addAttribute("submits", submitRepo.findAll());
+        return "submit-list";
+    }
+
     @GetMapping("/submit")
     public String showForm (Model model) {
         Submit submit = new Submit();
