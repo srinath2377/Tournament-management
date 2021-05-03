@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Submit your team</title>
-
-    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 </head>
 <body>
 
 <nav th:replace="index :: nav"></nav>
 
+<div class="container my-5">
+    <div align="center"><h1>Submit your team here! </h1></div>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/submit}" th:object="${submit}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="name" class="col-form-label">Name of your team: </label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="rank" class="col-form-label">Select Team's rank: </label>
+                            <select th:field="*{rank}" class="form-control" id="rank">
+                                <option th:each="p : ${rank}" th:value="${p}" th:text="${p}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="email" class="col-form-label">Your email: </label>
+                            <input type="text" th:field="*{email}" class="form-control" id="email">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Leader's nickname: </label>
+                            <input type="text" th:field="*{leader}" class="form-control" id="leader">
+                        </div>
 
-<div align="center">
-    <h1>Submit your team to the tournament here!</h1>
-        <h2 th:if="${param.success}"> Thank you for adding your team to the tournament!</h2>
-         </div>
-
-        <form action="#" th:action="@{/submit}" th:object="${submit}" method="post">
-            <label>Name of your team: </label>
-            <input type="text" th:field="*{name}">
-
-            <label>Select your team's rank: </label>
-            <select th:field="*{rank}">
-                <option th:each="p : ${rank}" th:value="${p}" th:text="${p}"></option>
-            </select>
-
-            <label>Your e-mail address: </label>
-            <input type="text" th:field="*{email}">
-
-            <label>Leader's nickname: </label>
-            <input type="text" th:field="*{leader}">
-
-            </br> </br>
-            <button type="submit"> Add team</button>
-
-        </form>
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value="Add team">
+                        </div>
+                        <div class="form-group col-md-8"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-
-</body>
-</html>
