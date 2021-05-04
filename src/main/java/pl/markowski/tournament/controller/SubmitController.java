@@ -1,14 +1,16 @@
 package pl.markowski.tournament.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import pl.markowski.tournament.Service.SubmitService;
 import pl.markowski.tournament.model.Submit;
 import pl.markowski.tournament.repo.SubmitRepo;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,16 +19,17 @@ import java.util.List;
 public class SubmitController {
 
     private SubmitRepo submitRepo;
+    private SubmitService submitService;
 
     @Autowired
-    public SubmitController(SubmitRepo submitRepo) {
+    public SubmitController(SubmitRepo submitRepo, SubmitService submitService) {
         this.submitRepo = submitRepo;
+        this.submitService = submitService;
     }
 
     @GetMapping("/list")
     public String showSubmit (Model model) {
-        model.addAttribute("submits", submitRepo.findAll());
-        return "submit-list";
+        return findPaginated(1, "id", "asc", model);
     }
 
     @GetMapping("/submit")
@@ -39,8 +42,37 @@ public class SubmitController {
     }
 
     @PostMapping("/submit")
-    public String submitForm (@ModelAttribute("submit") Submit submit) {
-        submitRepo.save(submit);
-        return "submit_ok";
+    public String submitForm (@Valid @ModelAttribute("submit") Submit submit, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
+            model.addAttribute("rank", rank);
+            return "submit_form";
+        } else {
+            submitRepo.save(submit);
+            return "redirect:/submit";
+        }
+    }
+
+    @GetMapping("/list/page/{pageNo}")
+    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 10;
+
+        Page<Submit> page = submitService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Submit> submits = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalElements", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("submits", submits);
+        return "submit_list";
     }
 }

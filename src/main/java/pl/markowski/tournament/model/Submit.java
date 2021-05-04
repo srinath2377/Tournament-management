@@ -1,6 +1,8 @@
 package pl.markowski.tournament.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Submit {
@@ -9,9 +11,16 @@ public class Submit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please enter your team name")
     private String name;
+
     private String rank;
+
+    @NotBlank(message = "Please enter you e-mail address")
+    @Email(message = "Please enter valid e-mail address")
     private String email;
+
+    @NotBlank(message = "Please enter a nickname of team leader")
     private String leader;
 
     public Submit() {

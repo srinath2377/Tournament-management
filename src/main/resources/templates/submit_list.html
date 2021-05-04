@@ -17,18 +17,21 @@
     <div class="card">
         <div class="card-body">
             <div th:switch="${submits}" class="container my-5">
+                <h5 align="right"><b><div>Sorting by:
+                    </br><a th:href="@{'/list/page/' + ${currentPage} + '?sortField=name&sortDir=' +
+                                ${reverseSortDir}}">Name</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/list/page/' + ${currentPage} + '?sortField=rank&sortDir=' +
+                                ${reverseSortDir}}">Rank</a>
+                </div></b></h5></br>
                 <div class="col-md-20">
                     <h2 th:case="null">No teams submitted</h2>
                     <div th:case="*">
                         <table class="table table-striped table-responsive-md">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Rank</th>
-                                <th>Leader</th>
 
-                            </tr>
-                            </thead>
+                            <th>Name</th>
+                            <th>Rank</th>
+                            <th>Leader</th>
+
                             <tbody th:each="submit : ${submits}">
                             <tr>
                                 <td th:text="${submit.name}"></td>
@@ -38,7 +41,21 @@
                             </tbody>
                         </table>
                     </div>
+                    <div th:if="${totalPages > 1 }">
+                        <div class = "row col sm-10">
+                            <div class = "col sm-2">
+                                Submitted teams: <b>[[${totalElements}]]</b>
+                            </div>
 
+                            <div class = "col sm-2">
+                                <span th:each="i :${#numbers.sequence(1, totalPages)}">
+                                    <b><a th:if="${currentPage != i}" th:href="@{'/list/page/' + ${i} + '?sortField=' +
+                                     ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a></b>
+                                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
