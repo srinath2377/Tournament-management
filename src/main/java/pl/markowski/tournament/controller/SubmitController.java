@@ -18,6 +18,8 @@ import java.util.List;
 @Controller
 public class SubmitController {
 
+    int counting = 0;
+
     private SubmitRepo submitRepo;
     private SubmitService submitService;
 
@@ -44,13 +46,18 @@ public class SubmitController {
     @PostMapping("/submit")
     public String submitForm (@Valid @ModelAttribute("submit") Submit submit, BindingResult bindingResult, Model model) {
 
-        if (bindingResult.hasErrors()) {
+        if (counting>=4) {
+            return "submit_max";
+        }
+
+        else if (bindingResult.hasErrors()) {
             List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
             model.addAttribute("rank", rank);
             return "submit_form";
         } else {
             submitRepo.save(submit);
-            return "redirect:/submit";
+            counting++;
+            return "submit_ok";
         }
     }
 
@@ -59,8 +66,8 @@ public class SubmitController {
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
                                 Model model) {
-        int pageSize = 10;
 
+        int pageSize = 10;
         Page<Submit> page = submitService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Submit> submits = page.getContent();
 
@@ -74,5 +81,26 @@ public class SubmitController {
 
         model.addAttribute("submits", submits);
         return "submit_list";
+    }
+
+    @GetMapping("delete/{id}")
+    public String deleteSubmit(@PathVariable ("id") long id, Model model) {
+
+        Submit submit = submitRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid ID : " + id));
+
+        submitRepo.delete(submit);
+        counting--;
+        model.addAttribute("submits", submitRepo.findAll());
+        return "submit_list";
+    }
+
+    @GetMapping("deleteAll")
+    public String deleteAll(Model model) {
+
+        submitRepo.deleteAll();
+        counting = 0;
+        model.addAttribute("submits", submitRepo.findAll());
+        return "redirect:/list";
     }
 }

@@ -31,15 +31,20 @@
                             <th>Name</th>
                             <th>Rank</th>
                             <th>Leader</th>
+                            <th><p style="color: red">Delete</p></th>
 
                             <tbody th:each="submit : ${submits}">
                             <tr>
                                 <td th:text="${submit.name}"></td>
                                 <td th:text="${submit.rank}"></td>
                                 <td th:text="${submit.leader}"></td>
+                                <td><a th:href="@{/delete/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div>
+                        <td><a th:href="@{/deleteAll}" class="btn btn-primary">Delete all</a></td>
                     </div>
                     <div th:if="${totalPages > 1 }">
                         <div class = "row col sm-10">
