@@ -31,3 +31,6 @@ computer games. An administrator could accept teams and set them against each ot
 - Added **pagination and sorting features.**
 - Added validation to submit form.
 
+##### -v.0.3 :
+- Added **season feature** update
+
