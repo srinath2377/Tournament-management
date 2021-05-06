@@ -23,4 +23,11 @@ computer games. An administrator could accept teams and set them against each ot
 
 
 ## Changelog
--v.0.1 - Added submit form and menu.
+
+##### -v.0.1 :
+- Added submit form and menu.
+
+##### -v.0.2 :
+- Added **pagination and sorting features.**
+- Added validation to submit form.
+
