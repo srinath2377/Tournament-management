@@ -50,16 +50,10 @@
                             </select>
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="email" class="col-form-label">Your email: </label>
-                            <input type="email" th:field="*{email}" class="form-control" id="email">
-                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red">Email error</span>
-                        </div>
-                        <div class="form-group col-md-8">
                             <label for="leader" class="col-form-label">Leader's nickname: </label>
                             <input type="text" th:field="*{leader}" class="form-control" id="leader">
                             <span th:if="${#fields.hasErrors('leader')}" th:errors="*{leader}" style="color: red">Leader error</span>
                         </div>
-                        
 
                         <div class="col-md-6">
                             <input type="submit" class="btn btn-primary" value="Edit team">
