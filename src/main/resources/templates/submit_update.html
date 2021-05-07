@@ -20,6 +20,24 @@
             <div class="col-md-10">
                 <form action="#" th:action="@{/update/{id}(id=${submit.id})}" th:object="${submit}" method="post">
                     <div class="row">
+					
+					<div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Wins: </label>
+                            <input type="text" th:field="*{wins}" class="form-control" id="wins">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Loses: </label>
+                            <input type="text" th:field="*{loses}" class="form-control" id="loses">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Draws: </label>
+                            <input type="text" th:field="*{draws}" class="form-control" id="draws">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Score: </label>
+                            <input type="text" th:field="*{score}" class="form-control" id="score">
+                        </div>
+					
                         <div class="form-group col-md-8">
                             <label for="name" class="col-form-label">Name of your team: </label>
                             <input type="text" th:field="*{name}" class="form-control" id="name">
@@ -41,22 +59,7 @@
                             <input type="text" th:field="*{leader}" class="form-control" id="leader">
                             <span th:if="${#fields.hasErrors('leader')}" th:errors="*{leader}" style="color: red">Leader error</span>
                         </div>
-                        <div class="form-group col-md-8">
-                            <label for="leader" class="col-form-label">Wins: </label>
-                            <input type="text" th:field="*{wins}" class="form-control" id="wins">
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="leader" class="col-form-label">Loses: </label>
-                            <input type="text" th:field="*{loses}" class="form-control" id="loses">
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="leader" class="col-form-label">Draws: </label>
-                            <input type="text" th:field="*{draws}" class="form-control" id="draws">
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="leader" class="col-form-label">Score: </label>
-                            <input type="text" th:field="*{score}" class="form-control" id="score">
-                        </div>
+                        
 
                         <div class="col-md-6">
                             <input type="submit" class="btn btn-primary" value="Edit team">
