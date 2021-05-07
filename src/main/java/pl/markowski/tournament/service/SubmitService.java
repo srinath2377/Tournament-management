@@ -1,4 +1,4 @@
-package pl.markowski.tournament.Service;
+package pl.markowski.tournament.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,4 +35,8 @@ public class SubmitService {
      public void deleteSubmitAll() {
         this.submitRepo.deleteAll();
      }
+
+//     public void increase () {
+//        submit.setScore(submit.getWins() +3);
+//     }
 }

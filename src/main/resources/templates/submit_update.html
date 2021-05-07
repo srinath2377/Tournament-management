@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit your team</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+<body>
+
+<nav th:replace="index :: nav"></nav>
+
+<div class="container my-5">
+    <div align="center"><h1>Update the team</h1></div>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/update/{id}(id=${submit.id})}" th:object="${submit}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="name" class="col-form-label">Name of your team: </label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name">
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red">Name error</span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="rank" class="col-form-label">Select Team's rank: </label>
+                            <select th:field="*{rank}" class="form-control" id="rank">
+                                <option th:each="p : ${rank}" th:value="${p}" th:text="${p}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="email" class="col-form-label">Your email: </label>
+                            <input type="email" th:field="*{email}" class="form-control" id="email">
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red">Email error</span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Leader's nickname: </label>
+                            <input type="text" th:field="*{leader}" class="form-control" id="leader">
+                            <span th:if="${#fields.hasErrors('leader')}" th:errors="*{leader}" style="color: red">Leader error</span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Wins: </label>
+                            <input type="text" th:field="*{wins}" class="form-control" id="wins">
+                            <span th:if="${#fields.hasErrors('wins')}" th:errors="*{wins}" style="color: red">Leader error</span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Loses: </label>
+                            <input type="text" th:field="*{loses}" class="form-control" id="loses">
+                            <span th:if="${#fields.hasErrors('loses')}" th:errors="*{loses}" style="color: red">Leader error</span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Draws: </label>
+                            <input type="text" th:field="*{draws}" class="form-control" id="draws">
+                            <span th:if="${#fields.hasErrors('draws')}" th:errors="*{draws}" style="color: red">Leader error</span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="leader" class="col-form-label">Score: </label>
+                            <input type="text" th:field="*{score}" class="form-control" id="score">
+                            <span th:if="${#fields.hasErrors('score')}" th:errors="*{score}" style="color: red">Leader error</span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value="Edit team">
+                        </div>
+                        <div class="form-group col-md-8"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

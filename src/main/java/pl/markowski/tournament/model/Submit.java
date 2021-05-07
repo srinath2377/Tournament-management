@@ -23,6 +23,13 @@ public class Submit {
     @NotBlank(message = "Please enter a nickname of team leader")
     private String leader;
 
+    @Column(columnDefinition = "Integer default 0")
+    private Integer score = 0;
+    private Integer wins = 0;
+    private Integer loses = 0;
+    private Integer draws = 0;
+
+
     public Submit() {
     }
 
@@ -64,5 +71,38 @@ public class Submit {
 
     public void setLeader(String leader) {
         this.leader = leader;
+    }
+
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Integer getWins() {
+        return wins;
+    }
+
+    public void setWins(Integer wins) {
+        this.wins = wins;
+    }
+
+    public Integer getLoses() {
+        return loses;
+    }
+
+    public void setLoses(Integer loses) {
+        this.loses = loses;
+    }
+
+    public Integer getDraws() {
+        return draws;
+    }
+
+    public void setDraws(Integer draws) {
+        this.draws = draws;
     }
 }

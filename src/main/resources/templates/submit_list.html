@@ -17,11 +17,19 @@
     <div class="card">
         <div class="card-body">
             <div th:switch="${submits}" class="container my-5">
-                <h5 align="right"><b><div>Sorting by:
-                    </br><a th:href="@{'/list/page/' + ${currentPage} + '?sortField=name&sortDir=' +
+                <h5 align="right"><b><div><p class="sorting">Sorting by:</p>
+
+                    </br></br><a th:href="@{'/list/page/' + ${currentPage} + '?sortField=name&sortDir=' +
                                 ${reverseSortDir}}">Name</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
                     <a th:href="@{'/list/page/' + ${currentPage} + '?sortField=rank&sortDir=' +
-                                ${reverseSortDir}}">Rank</a>
+                                ${reverseSortDir}}">Rank</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <a th:href="@{'/list/page/' + ${currentPage} + '?sortField=wins&sortDir=' +
+                                ${reverseSortDir}}">Wins</a>&nbsp;&nbsp;
+
+                    <a th:href="@{'/list/page/' + ${currentPage} + '?sortField=score&sortDir=' +
+                                ${reverseSortDir}}">Score</a>&nbsp;
                 </div></b></h5></br>
                 <div class="col-md-20">
                     <h2 th:case="null">No teams submitted</h2>
@@ -31,6 +39,11 @@
                             <th>Name</th>
                             <th>Rank</th>
                             <th>Leader</th>
+                            <th>Wins</th>
+                            <th>Loses</th>
+                            <th>Draws</th>
+                            <th>Score</th>
+                            <th><p style="color: red">Edit</p></th>
                             <th><p style="color: red">Delete</p></th>
 
                             <tbody th:each="submit : ${submits}">
@@ -38,6 +51,11 @@
                                 <td th:text="${submit.name}"></td>
                                 <td th:text="${submit.rank}"></td>
                                 <td th:text="${submit.leader}"></td>
+                                <td th:text="${submit.wins}"></td>
+                                <td th:text="${submit.loses}"></td>
+                                <td th:text="${submit.draws}"></td>
+                                <td th:text="${submit.score}"></td>
+                                <td><a th:href="@{/edit/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                                 <td><a th:href="@{/delete/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                             </tr>
                             </tbody>

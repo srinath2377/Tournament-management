@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.markowski.tournament.Service.SubmitService;
+import pl.markowski.tournament.service.SubmitService;
 import pl.markowski.tournament.model.Submit;
 import pl.markowski.tournament.repo.SubmitRepo;
 
@@ -98,6 +98,32 @@ public class SubmitController {
         this.submitService.deleteSubmitAll();
         counting = 0;
         model.addAttribute("submits", submitRepo.findAll());
+        return "redirect:/list";
+    }
+
+    @GetMapping("edit/{id}")
+    public String showUpdateForm(@PathVariable ("id") long id, Model model) {
+        Submit submit = submitRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid ID: " + id));
+        List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
+        model.addAttribute("rank", rank);
+        model.addAttribute("submit", submit);
+        return "submit_update";
+    }
+
+    @PostMapping("update/{id}")
+    public String updateSubmit(@PathVariable ("id") long id, @Valid Submit submit, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
+            model.addAttribute("rank", rank);
+            submit.setId(id);
+            return "submit_update";
+        }
+
+//        submitService.increase();
+        submitRepo.save(submit);
+        model.addAttribute("submit", submitRepo.findAll());
         return "redirect:/list";
     }
 }

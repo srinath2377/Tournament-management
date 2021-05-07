@@ -6,5 +6,6 @@ import pl.markowski.tournament.model.AppUser;
 
 @Repository
 public interface AppUserRepo extends JpaRepository<AppUser, Long> {
+
     AppUser findByUsername(String username);
 }
