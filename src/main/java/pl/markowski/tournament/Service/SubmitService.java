@@ -25,4 +25,14 @@ public class SubmitService {
         Pageable pageable = PageRequest.of(pageNo -1, pageSize, sort);
         return this.submitRepo.findAll(pageable);
      }
+
+     public void deleteSubmitById(long id) {
+         Submit submit = submitRepo.findById(id)
+                 .orElseThrow(() -> new IllegalArgumentException("Invalid ID : " + id));
+        this.submitRepo.delete(submit);
+     }
+
+     public void deleteSubmitAll() {
+        this.submitRepo.deleteAll();
+     }
 }

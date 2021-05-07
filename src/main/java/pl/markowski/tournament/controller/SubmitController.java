@@ -86,10 +86,7 @@ public class SubmitController {
     @GetMapping("delete/{id}")
     public String deleteSubmit(@PathVariable ("id") long id, Model model) {
 
-        Submit submit = submitRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid ID : " + id));
-
-        submitRepo.delete(submit);
+        this.submitService.deleteSubmitById(id);
         counting--;
         model.addAttribute("submits", submitRepo.findAll());
         return "submit_list";
@@ -98,7 +95,7 @@ public class SubmitController {
     @GetMapping("deleteAll")
     public String deleteAll(Model model) {
 
-        submitRepo.deleteAll();
+        this.submitService.deleteSubmitAll();
         counting = 0;
         model.addAttribute("submits", submitRepo.findAll());
         return "redirect:/list";
