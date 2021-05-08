@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Submit list</title>
@@ -43,8 +44,8 @@
                             <th>Loses</th>
                             <th>Draws</th>
                             <th>Score</th>
-                            <th><p style="color: red">Edit</p></th>
-                            <th><p style="color: red">Delete</p></th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><p style="color: red">Edit</p></th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><p style="color: red">Delete</p></th>
 
                             <tbody th:each="submit : ${submits}">
                             <tr>
@@ -55,14 +56,14 @@
                                 <td th:text="${submit.loses}"></td>
                                 <td th:text="${submit.draws}"></td>
                                 <td th:text="${submit.score}"></td>
-                                <td><a th:href="@{/edit/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                <td><a th:href="@{/delete/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/edit/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/delete/{id}(id=${submit.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div>
-                        <td><a th:href="@{/deleteAll}" class="btn btn-primary">Delete all</a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/deleteAll}" class="btn btn-primary">Delete all</a></td>
                     </div>
                     <div th:if="${totalPages > 1 }">
                         <div class = "row col sm-10">
