@@ -42,4 +42,6 @@ public class SubmitService {
         submit.setScore(submit.getScore() - submit.getLoses() -1);
         submit.setScore(submit.getScore() + submit.getDraws() +1);
      }
+
+
 }

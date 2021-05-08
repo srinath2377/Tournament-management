@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit list</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+</head>
+<body>
+
+<nav th:replace="index :: nav"></nav>
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${infos}" class="container my-5">
+                <p class="my-5" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <a href="/info/add" class="btn btn-primary">
+                        <i class="fas fa-user-plus ml-2"> Add information</i></a>
+                </p>
+                <div class="col-md-20">
+                    <h2 th:case="null">No info added</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+
+                            <th>Information</th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><p style="color: red">Edit</p></th>
+                            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><p style="color: red">Delete</p></th>
+
+                            <tbody th:each="info : ${infos}">
+                            <tr>
+                                <td th:text="${info.text}"></td>
+                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/edit/{id}(id=${info.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/delete/{id}(id=${info.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/deleteAll}" class="btn btn-primary">Delete all</a></td>
+                    </div>
+                    <div th:if="${totalPages > 1 }">
+                        <div class = "row col sm-10">
+                            <div class = "col sm-2">
+                                Submitted teams: <b>[[${totalElements}]]</b>
+                            </div>
+
+                            <div class = "col sm-2">
+                                <span th:each="i :${#numbers.sequence(1, totalPages)}">
+                                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
