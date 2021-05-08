@@ -68,7 +68,7 @@ public class InfoController {
     public String deleteInfoSubmit(@PathVariable ("id") long id, Model model) {
 
         this.infoService.deleteInfoById(id);
-        model.addAttribute("infos", infoRepo.findAll());
+        model.addAttribute("infos", infoRepo.findAllByOrderById());
         return "info";
     }
 
@@ -76,7 +76,7 @@ public class InfoController {
     public String deleteInfoAll(Model model) {
 
         this.infoService.deleteInfoAll();
-        model.addAttribute("infos", infoRepo.findAll());
+        model.addAttribute("infos", infoRepo.findAllByOrderById());
         return "redirect:/info/list";
     }
 
@@ -98,7 +98,7 @@ public class InfoController {
         }
 
         infoRepo.save(info);
-        model.addAttribute("info", infoRepo.findAll());
+        model.addAttribute("info", infoRepo.findAllByOrderById());
         return "redirect:/info/list";
     }
 }

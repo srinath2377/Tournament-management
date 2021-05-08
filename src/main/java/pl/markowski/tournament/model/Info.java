@@ -1,6 +1,7 @@
 package pl.markowski.tournament.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Info {
@@ -9,6 +10,7 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please enter new information")
     @Column(columnDefinition = "TEXT")
     private String text;
 

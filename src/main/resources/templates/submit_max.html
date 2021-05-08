@@ -2,23 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Submit your team</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <title>Max</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
 </head>
 <body>
 
 <nav th:replace="index :: nav"></nav>
 
-
 <div align="center">
     </br>
     <h1>The season <b>has already started!</b> </h1>
     <h2>You can no longer submit your team. </h2>
-    <h2>Informations about next tournaments and seasons can be found <a th:href="@{'/info'}"> here </a> </h2>
+    <h2>Informations about next tournaments and seasons can be found <a th:href="@{'/info/list'}"> here </a> </h2>
 </div>
 
 </body>
