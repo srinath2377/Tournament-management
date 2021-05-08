@@ -3,6 +3,7 @@ package pl.markowski.tournament.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -112,16 +113,15 @@ public class SubmitController {
     }
 
     @PostMapping("update/{id}")
+    @Transactional
     public String updateSubmit(@PathVariable ("id") long id, @Valid Submit submit, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
-            model.addAttribute("rank", rank);
             submit.setId(id);
             return "submit_update";
         }
 
-//        submitService.increase();
+        submitService.increase(submit);
         submitRepo.save(submit);
         model.addAttribute("submit", submitRepo.findAll());
         return "redirect:/list";

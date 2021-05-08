@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.markowski.tournament.model.Submit;
 import pl.markowski.tournament.repo.SubmitRepo;
 
@@ -36,7 +37,9 @@ public class SubmitService {
         this.submitRepo.deleteAll();
      }
 
-//     public void increase () {
-//        submit.setScore(submit.getWins() +3);
-//     }
+     public void increase (@ModelAttribute Submit submit) {
+        submit.setScore(submit.getWins() *3);
+        submit.setScore(submit.getScore() - submit.getLoses() -1);
+        submit.setScore(submit.getScore() + submit.getDraws() +1);
+     }
 }
