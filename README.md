@@ -34,3 +34,6 @@ computer games. An administrator could accept teams and set them against each ot
 ##### -v.0.3 :
 - Added **season feature** update
 
+##### -v.1.0 :
+- Some new features added.
+
