@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface InfoRepo extends JpaRepository<Info, Long> {
 
-    public List<Info> findAllByOrderById();
+    public List<Info> findAllByOrderByIdDesc();
     Info findByText(String text);
 }

@@ -28,6 +28,7 @@ public class InfoController {
 
     @GetMapping("/info/list")
     public String showInfo (Model model) {
+        model.addAttribute("infos", infoRepo.findAllByOrderByIdDesc());
         return findPaginated(1, model);
     }
 
@@ -68,7 +69,7 @@ public class InfoController {
     public String deleteInfoSubmit(@PathVariable ("id") long id, Model model) {
 
         this.infoService.deleteInfoById(id);
-        model.addAttribute("infos", infoRepo.findAllByOrderById());
+        model.addAttribute("infos", infoRepo.findAllByOrderByIdDesc());
         return "info";
     }
 
@@ -76,7 +77,7 @@ public class InfoController {
     public String deleteInfoAll(Model model) {
 
         this.infoService.deleteInfoAll();
-        model.addAttribute("infos", infoRepo.findAllByOrderById());
+        model.addAttribute("infos", infoRepo.findAllByOrderByIdDesc());
         return "redirect:/info/list";
     }
 
@@ -98,7 +99,7 @@ public class InfoController {
         }
 
         infoRepo.save(info);
-        model.addAttribute("info", infoRepo.findAllByOrderById());
+        model.addAttribute("info", infoRepo.findAllByOrderByIdDesc());
         return "redirect:/info/list";
     }
 }

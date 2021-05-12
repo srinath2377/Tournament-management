@@ -20,7 +20,7 @@ public class InfoService {
     }
 
     public Page<Info> findPaginated(int pageNo, int pageSize) {
-        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+        Pageable pageable = PageRequest.of(pageNo -1, pageSize, Sort.Direction.DESC, "id");
         return this.infoRepo.findAll(pageable);
     }
 
