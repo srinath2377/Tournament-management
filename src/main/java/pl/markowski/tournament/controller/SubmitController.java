@@ -19,8 +19,6 @@ import java.util.List;
 @Controller
 public class SubmitController {
 
-    int counting = 0;
-
     private SubmitRepo submitRepo;
     private SubmitService submitService;
 
@@ -47,8 +45,10 @@ public class SubmitController {
     @PostMapping("/submit")
     public String submitForm (@Valid @ModelAttribute("submit") Submit submit, BindingResult bindingResult, Model model) {
 
-        if (counting>=4) {
+        if (submitRepo.count()>=4) {
+            System.out.println(submitRepo.count());
             return "submit_max";
+
         }
 
         else if (bindingResult.hasErrors()) {
@@ -57,7 +57,6 @@ public class SubmitController {
             return "submit_form";
         } else {
             submitRepo.save(submit);
-            counting++;
             return "submit_ok";
         }
     }
@@ -84,19 +83,17 @@ public class SubmitController {
     }
 
     @GetMapping("delete/{id}")
-    public String deleteSubmit(@PathVariable ("id") long id, Model model) {
+    public String deleteSubmit(@PathVariable ("id") long id, Model model, Submit submit) {
 
         this.submitService.deleteSubmitById(id);
-        counting--;
         model.addAttribute("submits", submitRepo.findAll());
         return "submit_list";
     }
 
     @GetMapping("deleteAll")
-    public String deleteAll(Model model) {
+    public String deleteAll(Model model, Submit submit) {
 
         this.submitService.deleteSubmitAll();
-        counting = 0;
         model.addAttribute("submits", submitRepo.findAll());
         return "redirect:/list";
     }

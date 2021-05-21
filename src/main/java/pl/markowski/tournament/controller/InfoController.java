@@ -53,7 +53,7 @@ public class InfoController {
     @GetMapping("info/list/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
 
-        int pageSize = 20;
+        int pageSize = 10;
         Page<Info> page = infoService.findPaginated(pageNo, pageSize);
         List<Info> infos = page.getContent();
 

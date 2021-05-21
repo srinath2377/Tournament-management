@@ -25,10 +25,12 @@ public class Submit {
 
     @Column(columnDefinition = "Integer default 0")
     private Integer score = 0;
+    @Column(columnDefinition = "Integer default 0")
     private Integer wins = 0;
+    @Column(columnDefinition = "Integer default 0")
     private Integer loses = 0;
+    @Column(columnDefinition = "Integer default 0")
     private Integer draws = 0;
-
 
     public Submit() {
     }

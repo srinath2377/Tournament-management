@@ -1,7 +1,12 @@
 package pl.markowski.tournament.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Entity
 public class Info {
@@ -13,6 +18,15 @@ public class Info {
     @NotBlank(message = "Please enter new information")
     @Column(columnDefinition = "TEXT")
     private String text;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
+    private Date timestamp;
+
+    @PrePersist
+    private void onCreate() {
+        timestamp = new Date();
+    }
 
     public Info() {
     }
@@ -31,5 +45,13 @@ public class Info {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 }
