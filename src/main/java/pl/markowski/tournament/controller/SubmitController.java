@@ -46,7 +46,6 @@ public class SubmitController {
     public String submitForm (@Valid @ModelAttribute("submit") Submit submit, BindingResult bindingResult, Model model) {
 
         if (submitRepo.count()>=4) {
-            System.out.println(submitRepo.count());
             return "submit_max";
 
         }

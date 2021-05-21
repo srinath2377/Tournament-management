@@ -1,10 +1,8 @@
 package pl.markowski.tournament.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -20,13 +18,18 @@ public class Info {
     private String text;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private Date timestamp;
 
     @PrePersist
     private void onCreate() {
         timestamp = new Date();
     }
+
+    @PreUpdate
+    void updatedAt() {
+        timestamp = new Date();
+    }
+
 
     public Info() {
     }
