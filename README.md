@@ -1,39 +1,37 @@
-# This is going to be web appliaction. It is updated regularly so stay tuned!
+# Tournament management
 
 ## Contents
 * [About](#About)
 * [Technologies](#technologies)
-* [Changelog](#Changelog)
+* [Functions](#Functions)
+
 
 ## About
-In college, there was a local computer game competition between several teams with many students participating. Everything was done via email, so I thought it would be interesting 
-to create an app that would allow people to organize tournaments. I am currently working on such an application, in which users can submit their teams to tournaments organized in 
-computer games. An administrator could accept teams and set them against each other and update them with wins and losses until the final rounds.
-
+In college, there was a local computer game competition between several teams that many students participated in. Everything was done via email, so I thought it would be 
+interesting to create an application that would allow organizing such tournaments. The administrator would additionally have more permissions to this application, which he could 
+manage. He also doesn't have to constantly send many emails to everyone. He can add informations directly from the application which are visible to everyone. This application 
+allowed me to test and consolidate my programming skills.
 
 ## Technologies
 * Java
 * Spring Boot
+* Spring Security
 * Hibernate
 * H2
 * Thymeleaf
+* Bootstrap
 
 #### Used tools:
 * Maven
 
 
-## Changelog
-
-##### -v.0.1 :
-- Added submit form and menu.
-
-##### -v.0.2 :
-- Added **pagination and sorting features.**
-- Added validation to submit form.
-
-##### -v.0.3 :
-- Added **season feature** update
-
-##### -v.1.0 :
-- Some new features added.
-
+## Functions
+- <b>Everyone</b> has access to browse the application.
+- User can submit a new team.
+- Validation is provided by server, not the html view.
+- Sorting by 'Name', 'Rank', 'Wins', 'Score'.
+- Added pagination.
+- <b>Administrator</b> can login to the panel by adding /login to the address (No need to be visible for everyone)
+- He is able to edit and delete a team.
+- He can add wins, loses or draws to each team. It will automaticly increase or decrease the score.
+- Administrator can add, edit and delete informations which are visible for everyone.
