@@ -1,5 +1,8 @@
 # Tournament management
 
+This application is available on heroku: https://tournamentmng.herokuapp.com
+To login - type /login | Admin account- login: admin password: admin
+
 ## Contents
 * [About](#About)
 * [Technologies](#technologies)
