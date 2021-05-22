@@ -11,7 +11,7 @@ In college, there was a local computer game competition between several teams th
 interesting to create an application that would allow organizing such tournaments. The administrator would additionally have more permissions to this application, which he could 
 manage. He also doesn't have to constantly send many emails to everyone. He can add informations directly from the application which are visible to everyone. This application 
 allowed me to test and consolidate my programming skills.
-
+ 
 ## Technologies
 * Java
 * Spring Boot
