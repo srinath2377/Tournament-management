@@ -36,5 +36,5 @@ allowed me to test and consolidate my programming skills.
 - Added pagination.
 - <b>Administrator</b> can login to the panel by adding /login to the address (No need to be visible for everyone)
 - He is able to edit and delete a team.
-- He can add wins, loses or draws to each team. It will automaticly increase or decrease the score.
+- He can add wins, loses or draws to each team. The score will increase or decrease automaticly.
 - Administrator can add, edit and delete informations which are visible for everyone.
