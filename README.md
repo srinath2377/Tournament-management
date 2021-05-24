@@ -31,7 +31,8 @@ allowed me to test and consolidate my programming skills.
 ## Functions
 - <b>Everyone</b> has access to browse the application.
 - User can submit a new team.
-- Validation is provided by server, not the html view.
+- Validation: provided by server, not the html view.
+- Once the application has the maximum number of submitted teams, the season starts. - user can no longer submit any team.
 - Sorting by 'Name', 'Rank', 'Wins', 'Score'.
 - Added pagination.
 - <b>Administrator</b> can login to the panel by adding /login to the address (No need to be visible for everyone)
