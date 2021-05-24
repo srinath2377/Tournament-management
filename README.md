@@ -1,7 +1,7 @@
 # Tournament management
 
 This application is available on heroku: https://tournamentmng.herokuapp.com
-</br>To login - type /login | <b>Admin account-</b> login: <b>admin</b> password: <b>admin</b>
+</br>To login - type /login : tournamentmng.herokuapp.com/login | <b>Admin account-</b> login: <b>admin</b> password: <b>admin</b>
 
 ## Contents
 * [About](#About)
