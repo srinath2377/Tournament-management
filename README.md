@@ -11,9 +11,9 @@ This application is available on heroku: https://tournamentmng.herokuapp.com
 
 ## About
 In college, there was a local computer game competition between several teams that many students participated in. Everything was done via email, so I thought it would be 
-interesting to create an application that would allow organizing such tournaments. The administrator has additionally more permissions to this application which he can manage. 
-Users can submit their teams through the application where each team's score is recorded. He also doesn't have to constantly send many emails to everyone. He can add 
-informations directly from the application which are visible to everyone. This application allowed me to test and consolidate my programming skills.
+interesting to create an application that would allow organizing such tournaments. Users can submit their teams through the application where each team's score is recorded. The 
+administrator has additionally more permissions to this application which he can manage. He also doesn't have to constantly send many emails to everyone. He can add informations 
+directly from the application which are visible to everyone. This application allowed me to test and consolidate my programming skills.
  
 ## Technologies
 * Java
