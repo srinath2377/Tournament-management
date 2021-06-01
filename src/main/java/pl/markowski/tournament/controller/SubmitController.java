@@ -28,12 +28,12 @@ public class SubmitController {
         this.submitService = submitService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public String showSubmit (Model model) {
         return findPaginated(1, "id", "asc", model);
     }
 
-    @GetMapping("/submit")
+    @GetMapping("submit")
     public String showForm (Model model) {
         Submit submit = new Submit();
         model.addAttribute("submit", submit);
@@ -42,7 +42,7 @@ public class SubmitController {
         return "submit_form";
     }
 
-    @PostMapping("/submit")
+    @PostMapping("submit")
     public String submitForm (@Valid @ModelAttribute("submit") Submit submit, BindingResult bindingResult, Model model) {
 
         if (submitRepo.count()>=4) {
@@ -60,7 +60,7 @@ public class SubmitController {
         }
     }
 
-    @GetMapping("/list/page/{pageNo}")
+    @GetMapping("list/page/{pageNo}")
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,

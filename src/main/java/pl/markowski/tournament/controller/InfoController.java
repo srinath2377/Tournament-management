@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("info")
 public class InfoController {
 
     private InfoRepo infoRepo;
@@ -26,20 +27,20 @@ public class InfoController {
         this.infoService = infoService;
     }
 
-    @GetMapping("/info/list")
+    @GetMapping("list")
     public String showInfo (Model model) {
         model.addAttribute("infos", infoRepo.findAllByOrderByIdDesc());
         return findPaginated(1, model);
     }
 
-    @GetMapping("info/add")
+    @GetMapping("add")
     public String showInfoForm (Model model) {
         Info info = new Info();
         model.addAttribute("info", info);
         return "info_form";
     }
 
-    @PostMapping("info/add")
+    @PostMapping("add")
     public String infoForm (@Valid @ModelAttribute("info") Info info, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -50,7 +51,7 @@ public class InfoController {
         }
     }
 
-    @GetMapping("info/list/page/{pageNo}")
+    @GetMapping("list/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
 
         int pageSize = 10;
@@ -65,7 +66,7 @@ public class InfoController {
         return "info";
     }
 
-    @GetMapping("info/delete/{id}")
+    @GetMapping("delete/{id}")
     public String deleteInfoSubmit(@PathVariable ("id") long id, Model model) {
 
         this.infoService.deleteInfoById(id);
@@ -73,7 +74,7 @@ public class InfoController {
         return "info";
     }
 
-    @GetMapping("info/deleteAll")
+    @GetMapping("deleteAll")
     public String deleteInfoAll(Model model) {
 
         this.infoService.deleteInfoAll();
@@ -81,7 +82,7 @@ public class InfoController {
         return "redirect:/info/list";
     }
 
-    @GetMapping("info/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showUpdateInfoForm(@PathVariable ("id") long id, Model model) {
         Info info = infoRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid ID: " + id));
@@ -89,7 +90,7 @@ public class InfoController {
         return "info_update";
     }
 
-    @PostMapping("info/update/{id}")
+    @PostMapping("update/{id}")
     @Transactional
     public String updateInfoSubmit(@PathVariable ("id") long id, @Valid Info info, BindingResult result, Model model) {
 

@@ -13,21 +13,21 @@ public class Info {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Please enter new information")
+    @NotBlank(message = "Please enter a new information")
     @Column(columnDefinition = "TEXT")
     private String text;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    @Temporal(TemporalType.DATE)
+    private Date date;
 
     @PrePersist
     private void onCreate() {
-        timestamp = new Date();
+        date = new Date();
     }
 
     @PreUpdate
     void updatedAt() {
-        timestamp = new Date();
+        date = new Date();
     }
 
 
@@ -50,11 +50,11 @@ public class Info {
         this.text = text;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

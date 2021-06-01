@@ -31,7 +31,7 @@
 
                             <tbody th:each="info : ${infos}">
                             <tr>
-                                <td th:text="${info.timestamp}">
+                                <td th:text="${info.date}">
                                 <td th:text="${info.text}"></td>
                                 <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/edit/{id}(id=${info.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
                                 <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/delete/{id}(id=${info.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
