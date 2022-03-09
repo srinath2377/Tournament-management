@@ -1,124 +1,77 @@
 package pl.markowski.tournament.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import pl.markowski.tournament.service.SubmitService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.markowski.tournament.model.Submit;
-import pl.markowski.tournament.repo.SubmitRepo;
+import pl.markowski.tournament.service.SubmitService;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
-
 
 @Controller
-public class SubmitController {
+@RequiredArgsConstructor
+class SubmitController {
 
-    private SubmitRepo submitRepo;
-    private SubmitService submitService;
-
-    @Autowired
-    public SubmitController(SubmitRepo submitRepo, SubmitService submitService) {
-        this.submitRepo = submitRepo;
-        this.submitService = submitService;
+    static final class Routes {
+        static final String LIST = "/list";
+        static final String SUBMIT = "/submit";
+        static final String FIND_PAGINATED = LIST + "/page/{pageNo}";
+        static final String DELETE = "/delete/{id}";
+        static final String DELETE_ALL = "/deleteAll";
+        static final String EDIT = "/edit/{id}";
+        static final String UPDATE = "/update/{id}";
     }
 
-    @GetMapping("list")
-    public String showSubmit (Model model) {
-        return findPaginated(1, "id", "asc", model);
+    private final SubmitService submitService;
+
+    @GetMapping(Routes.LIST)
+    public String getAllSubmits(final Model model) {
+        return submitService.getAllSubmits(model);
     }
 
-    @GetMapping("submit")
-    public String showForm (Model model) {
-        Submit submit = new Submit();
-        model.addAttribute("submit", submit);
-        List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
-        model.addAttribute("rank", rank);
-        return "submit_form";
+    @GetMapping(Routes.SUBMIT)
+    public String showSubmitForm(final Model model) {
+        return submitService.showSubmitForm(model);
     }
 
-    @PostMapping("submit")
-    public String submitForm (@Valid @ModelAttribute("submit") Submit submit, BindingResult bindingResult, Model model) {
-
-        if (submitRepo.count()>=4) {
-            return "submit_max";
-
-        }
-
-        else if (bindingResult.hasErrors()) {
-            List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
-            model.addAttribute("rank", rank);
-            return "submit_form";
-        } else {
-            submitRepo.save(submit);
-            return "submit_ok";
-        }
+    @PostMapping(Routes.SUBMIT)
+    public String addSubmit(@Valid @ModelAttribute("submit") final Submit submit, final BindingResult bindingResult, final Model model) {
+        return submitService.addSubmit(submit, bindingResult, model);
     }
 
-    @GetMapping("list/page/{pageNo}")
-    public String findPaginated(@PathVariable (value = "pageNo") int pageNo,
-                                @RequestParam("sortField") String sortField,
-                                @RequestParam("sortDir") String sortDir,
-                                Model model) {
-
-        int pageSize = 10;
-        Page<Submit> page = submitService.findPaginated(pageNo, pageSize, sortField, sortDir);
-        List<Submit> submits = page.getContent();
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalElements", page.getTotalElements());
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("submits", submits);
-        return "submit_list";
+    @GetMapping(Routes.FIND_PAGINATED)
+    public String findPaginated(@PathVariable(value = "pageNo") final int pageNo,
+                                @RequestParam("sortField") final String sortField,
+                                @RequestParam("sortDir") final String sortDir, final Model model) {
+        return submitService.findPaginated(pageNo, sortField, sortDir, model);
     }
 
-    @GetMapping("delete/{id}")
-    public String deleteSubmit(@PathVariable ("id") long id, Model model, Submit submit) {
-
-        this.submitService.deleteSubmitById(id);
-        model.addAttribute("submits", submitRepo.findAll());
-        return "submit_list";
+    @GetMapping(Routes.DELETE)
+    public String deleteSubmit(@PathVariable("id") final long id, final Model model, final Submit submit) {
+        return submitService.deleteSubmit(id, model, submit);
     }
 
-    @GetMapping("deleteAll")
-    public String deleteAll(Model model, Submit submit) {
-
-        this.submitService.deleteSubmitAll();
-        model.addAttribute("submits", submitRepo.findAll());
-        return "redirect:/list";
+    @GetMapping(Routes.DELETE_ALL)
+    public String deleteAll(final Model model, final Submit submit) {
+        return submitService.deleteAll(model, submit);
     }
 
-    @GetMapping("edit/{id}")
-    public String showUpdateForm(@PathVariable ("id") long id, Model model) {
-        Submit submit = submitRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid ID: " + id));
-        List<String> rank = Arrays.asList("I", "II", "III", "IV", "V", "VI", "X" );
-        model.addAttribute("rank", rank);
-        model.addAttribute("submit", submit);
-        return "submit_update";
+    @GetMapping(Routes.EDIT)
+    public String showUpdateForm(@PathVariable("id") final long id, final Model model) {
+        return submitService.showUpdateForm(id, model);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping(Routes.UPDATE)
     @Transactional
-    public String updateSubmit(@PathVariable ("id") long id, @Valid Submit submit, BindingResult result, Model model) {
-
-        if (result.hasErrors()) {
-            submit.setId(id);
-            return "submit_update";
-        }
-
-        submitService.increase(submit);
-        submitRepo.save(submit);
-        model.addAttribute("submit", submitRepo.findAll());
-        return "redirect:/list";
+    public String updateSubmit(@PathVariable("id") final long id, @Valid final Submit submit,
+                               final BindingResult result, final Model model) {
+        return submitService.updateSubmit(id, submit, result, model);
     }
 }

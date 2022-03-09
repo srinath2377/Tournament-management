@@ -14,9 +14,9 @@
 <div class="container my-2">
     <div class="card">
         <div class="card-body">
-            <div th:switch="${infos}" class="container my-5">
+            <div th:switch="${information}" class="container my-5">
                 <p class="my-5" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                    <a href="/info/add" class="btn btn-primary">
+                    <a href="/information/add" class="btn btn-primary">
                         <i class="fas fa-user-plus ml-2"> Add information</i></a>
                 </p>
                 <div class="col-md-20">
@@ -29,18 +29,18 @@
                             <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><p style="color: red">Edit</p></th>
                             <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><p style="color: red">Delete</p></th>
 
-                            <tbody th:each="info : ${infos}">
+                            <tbody th:each="information : ${information}">
                             <tr>
-                                <td th:text="${info.date}">
-                                <td th:text="${info.text}"></td>
-                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/edit/{id}(id=${info.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/delete/{id}(id=${info.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+                                <td th:text="${information.date}">
+                                <td th:text="${information.text}"></td>
+                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/information/edit/{id}(id=${information.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
+                                <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/information/delete/{id}(id=${information.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div>
-                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/info/deleteAll}" class="btn btn-primary">Delete all</a></td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a th:href="@{/information/deleteAll}" class="btn btn-primary">Delete all</a></td>
                     </div>
                     <div th:if="${totalPages > 1 }">
                         <div class = "row col sm-10">

@@ -1,44 +1,24 @@
 package pl.markowski.tournament.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import pl.markowski.tournament.model.Submit;
-import pl.markowski.tournament.repo.SubmitRepo;
 
-@Service
-public class SubmitService {
+public interface SubmitService {
 
-    private SubmitRepo submitRepo;
+    String getAllSubmits(final Model model);
 
-    @Autowired
-    public SubmitService(SubmitRepo submitRepo) {
-        this.submitRepo = submitRepo;
-    }
+    String showSubmitForm(final Model model);
 
-    public Page<Submit> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-                Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageNo -1, pageSize, sort);
-        return this.submitRepo.findAll(pageable);
-     }
+    String addSubmit(final Submit submit, final BindingResult bindingResult, final Model model);
 
-     public void deleteSubmitById(long id) {
-         Submit submit = submitRepo.findById(id)
-                 .orElseThrow(() -> new IllegalArgumentException("Invalid ID : " + id));
-        this.submitRepo.delete(submit);
-     }
+    String findPaginated(final int pageNo, final String sortField, final String sortDir, final Model model);
 
-     public void deleteSubmitAll() {
-        this.submitRepo.deleteAll();
-     }
+    String deleteSubmit(final long id, final Model model, final Submit submit);
 
-     public void increase (Submit submit) {
-        submit.setScore(submit.getWins() *3);
-        submit.setScore(submit.getScore() - submit.getLoses() -1);
-        submit.setScore(submit.getScore() + submit.getDraws() +1);
-     }
+    String deleteAll(final Model model, final Submit submit);
+
+    String showUpdateForm(final long id, final Model model);
+
+    String updateSubmit(final long id, final Submit submit, final BindingResult result, final Model model);
 }

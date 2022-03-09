@@ -1,110 +1,55 @@
 package pl.markowski.tournament.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+@Getter
+@Setter
 @Entity
+@Table(name = "submit")
+@NoArgsConstructor
 public class Submit {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "Please enter your team name")
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "rank", nullable = false)
     private String rank;
 
     @NotBlank(message = "Please enter you e-mail address")
     @Email(message = "Please enter valid e-mail address")
+    @Column(name = "email", nullable = false)
     private String email;
 
     @NotBlank(message = "Please enter a nickname of team leader")
+    @Column(name = "leader", nullable = false)
     private String leader;
 
-    @Column(columnDefinition = "Integer default 0")
+    @Column(name = "score", columnDefinition = "Integer default 0")
     private Integer score = 0;
-    @Column(columnDefinition = "Integer default 0")
+
+    @Column(name = "wins", columnDefinition = "Integer default 0")
     private Integer wins = 0;
-    @Column(columnDefinition = "Integer default 0")
+
+    @Column(name = "loses", columnDefinition = "Integer default 0")
     private Integer loses = 0;
-    @Column(columnDefinition = "Integer default 0")
+
+    @Column(name = "draws", columnDefinition = "Integer default 0")
     private Integer draws = 0;
-
-    public Submit() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRank() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLeader() {
-        return leader;
-    }
-
-    public void setLeader(String leader) {
-        this.leader = leader;
-    }
-
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Integer getWins() {
-        return wins;
-    }
-
-    public void setWins(Integer wins) {
-        this.wins = wins;
-    }
-
-    public Integer getLoses() {
-        return loses;
-    }
-
-    public void setLoses(Integer loses) {
-        this.loses = loses;
-    }
-
-    public Integer getDraws() {
-        return draws;
-    }
-
-    public void setDraws(Integer draws) {
-        this.draws = draws;
-    }
 }
